@@ -6,6 +6,8 @@ Public Class Form1
     Private oSelection As Word.Selection
     Private path
     Private newfilename
+    Private ofd As New OpenFileDialog
+    Private tgtFile As Object
     'Public Sub New()
     '    '激活word接口
     '    oWordApplication = New Microsoft.Office.Interop.Word.Application
@@ -47,7 +49,6 @@ Public Class Form1
 
         '默认模板
         newfilename = "C:\Users\zhaobin\Desktop\文件未命名.docx"
-
         Me.NewDocWithModel(newfilename)
     End Sub
     '创建新模板文档
@@ -87,4 +88,27 @@ Public Class Form1
         oDocument.Activate()
 
     End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        If ofd.ShowDialog() = DialogResult.OK Then
+            tgtFile = ofd.FileName
+            oWordApplication = New Word.Application
+            oDocument = oWordApplication.Documents.Open(tgtFile)
+            tgtFile = "C:\Users\zhaobin\Desktop\文档图片.html"
+            tgtFile = WordToTtml(tgtFile)
+            'oDocument.SaveAs2(tgtFile, FileFormat:="wdFormatHTML")格式错误
+            oDocument.SaveAs2(tgtFile, Word.WdSaveFormat.wdFormatHTML)
+            'oDocument.SaveAs(tgtFile, Word.WdSaveFormat.wdFormatHTML)
+            'saveas2比saveas多一个参数CompatibilityMode，兼容模式
+            oDocument.Close()
+            oWordApplication.Quit()
+        End If
+    End Sub
+    Function WordToTtml(sender As Object)
+        Dim toHtml
+        For i = 0 To sender.ToString.Length
+
+        Next
+        Return toHtml
+    End Function
 End Class
