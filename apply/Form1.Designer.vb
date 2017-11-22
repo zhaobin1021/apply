@@ -31,6 +31,7 @@ Partial Class Form1
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
+        Me.Button6 = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -88,42 +89,53 @@ Partial Class Form1
         '
         Me.Button3.Location = New System.Drawing.Point(3, 33)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(249, 23)
+        Me.Button3.Size = New System.Drawing.Size(223, 23)
         Me.Button3.TabIndex = 5
         Me.Button3.Text = "word转换为html"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(258, 47)
+        Me.Button4.Location = New System.Drawing.Point(447, 33)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(229, 23)
+        Me.Button4.Size = New System.Drawing.Size(211, 23)
         Me.Button4.TabIndex = 6
         Me.Button4.Text = "html标签转换提取"
         Me.Button4.UseVisualStyleBackColor = True
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(442, 12)
+        Me.Button5.Location = New System.Drawing.Point(232, 33)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(158, 23)
+        Me.Button5.Size = New System.Drawing.Size(209, 23)
         Me.Button5.TabIndex = 7
         Me.Button5.Text = "加载网页"
         Me.Button5.UseVisualStyleBackColor = True
         '
         'WebBrowser1
         '
-        Me.WebBrowser1.Location = New System.Drawing.Point(606, -2)
+        Me.WebBrowser1.Location = New System.Drawing.Point(411, 7)
         Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
         Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(271, 91)
+        Me.WebBrowser1.Size = New System.Drawing.Size(62, 20)
         Me.WebBrowser1.TabIndex = 8
+        Me.WebBrowser1.Visible = False
+        '
+        'Button6
+        '
+        Me.Button6.Location = New System.Drawing.Point(664, 33)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(213, 23)
+        Me.Button6.TabIndex = 9
+        Me.Button6.Text = "代码转换"
+        Me.Button6.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(889, 513)
+        Me.Controls.Add(Me.Button6)
         Me.Controls.Add(Me.WebBrowser1)
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button4)
@@ -145,4 +157,5 @@ Partial Class Form1
     Friend WithEvents Button4 As Button
     Friend WithEvents Button5 As Button
     Friend WithEvents WebBrowser1 As WebBrowser
+    Friend WithEvents Button6 As Button
 End Class

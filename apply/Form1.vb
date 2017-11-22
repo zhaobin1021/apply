@@ -9,7 +9,7 @@ Public Class Form1
     Private html As mshtml.HTMLDocument
     Private path
     Private newfilename
-    Private ofd
+    Private ofd As New OpenFileDialog
     Private tgtFile As Object
     'Public Sub New()
     '    '激活word接口
@@ -117,49 +117,40 @@ Public Class Form1
     End Function
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        '  Dim strName As String
-        '  Dim isReadOnly As Boolean
-        '  Dim isVisible As Boolean
-        ' Dim document
-        ' Dim docu
-        ' Dim missing = System.Reflection.Missing.Value
-        ' WebBrowser.Url =
-        ' oWordApplication = New Word.Application
-        'strName = "file:///C:\Users\zhaobin\Desktop\A20J792000-C8-1-1a.html"
 
         'Shell("D:\360\360se6\Application\360se.exe")
-        WebBrowser1.Url = New Uri(String.Format("file:///C:\Users\zhaobin\Desktop\A20J792000-C8-1-1a.html", Application.StartupPath))
-
-        'Button1.Enabled = False
-        'html = New HTMLDocument
-        ' docu = WebBrowser1.Document.Body.InnerHtml
-        'docu = WebBrowser1.Document.Body.GetElementsByTagName("span")
-
-        'document = html.open(strName)
-        'document = html.(strName)
-        'html.getElementsByTagName("//span")
-
-
-        ''strName = tgtFile
-        'isReadOnly = False
-        'isVisible = True
-        '' oDocument = oWordApplication.Documents.Open(strName, missing, isReadOnly, missing, missing, missing, missing, missing, missing, missing, missing, isVisible, missing, missing, missing, missing)
-        'oDocument = oWordApplication.Documents.Open(strName)
-
-        ''Dim reader As IO.StreamReader = New IO.StreamReader(, System.Text.Encoding.GetEncoding("GB2312"))
-        'Dim respHTML As String = oDocument.ReadToEnd()
-
-        ' RichTextBox1.Text = docu
-        'oDocument.Activate()
-        'oDocument.Close()
-        'oWordApplication.Quit()
-    End Sub
-
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-
-    End Sub
-
-    Private Sub WebBrowser1_DragOver(sender As Object, e As DragEventArgs) Handles WebBrowser1.DragOver
         RichTextBox1.Text = WebBrowser1.Document.Body.InnerHtml
+        'document = html.open(strName)
+        'oDocument = oWordApplication.Documents.Open(strName, missing, isReadOnly, missing, missing, missing, missing, missing, missing, missing, missing, isVisible, missing, missing, missing, missing)
+        'Dim reader As IO.StreamReader = New IO.StreamReader(, System.Text.Encoding.GetEncoding("GB2312"))
+        'Dim respHTML As String = oDocument.ReadToEnd()
+    End Sub
+    Private Sub loadHtml()
+        Dim strName = "file:///C:\Users\zhaobin\Desktop\A20J792000-C8-1-1a.html"
+        WebBrowser1.Url = New Uri(strName)
+        'WebBrowser1.Url = New Uri(String.Format(strName, Application.StartupPath))
+    End Sub
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        Me.loadHtml()
+    End Sub
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        Me.transform(RichTextBox1.Text)
+    End Sub
+    Private Sub transform(sender As Object)
+        Dim label1 = "<table>"
+        Dim textString As String = ""
+        Dim text = WebBrowser1.Document.Body.GetElementsByTagName("p")
+        Dim count = text.Count
+        Dim num = 0
+        For i = 0 To count - 1
+            If text.Item(num).Style <> Nothing Then
+                text.Item(num).Style.Remove(0)
+            End If
+            ' textString = textString + text.Item(num).InnerHtml
+            textString = textString + text.Item(num).InnerHtml.Replace("<(.[^>]*)>", "")
+
+            num = num + 1
+        Next
+        RichTextBox1.Text = textString
     End Sub
 End Class
