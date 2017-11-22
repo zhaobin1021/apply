@@ -1,12 +1,15 @@
 ﻿Imports Microsoft.Office.Interop
+Imports mshtml
+
 Public Class Form1
     Private oWordApplication As Word.Application
     Private oDocument As Word.Document
     Private oRange As Word.Range
     Private oSelection As Word.Selection
+    Private html As mshtml.HTMLDocument
     Private path
     Private newfilename
-    Private ofd As New OpenFileDialog
+    Private ofd
     Private tgtFile As Object
     'Public Sub New()
     '    '激活word接口
@@ -48,7 +51,7 @@ Public Class Form1
         'End If
 
         '默认模板
-        newfilename = "C:\Users\zhaobin\Desktop\文件未命名.docx"
+        newfilename = "C:\Users\zhaobin\Desktop\文档.docx"
         Me.NewDocWithModel(newfilename)
     End Sub
     '创建新模板文档
@@ -94,7 +97,7 @@ Public Class Form1
             tgtFile = ofd.FileName
             oWordApplication = New Word.Application
             oDocument = oWordApplication.Documents.Open(tgtFile)
-            tgtFile = "C:\Users\zhaobin\Desktop\文档图片.html"
+            'tgtFile = "C:\Users\zhaobin\Desktop\文档图片.html"
             tgtFile = WordToTtml(tgtFile)
             'oDocument.SaveAs2(tgtFile, FileFormat:="wdFormatHTML")格式错误
             oDocument.SaveAs2(tgtFile, Word.WdSaveFormat.wdFormatHTML)
@@ -104,11 +107,59 @@ Public Class Form1
             oWordApplication.Quit()
         End If
     End Sub
+
     Function WordToTtml(sender As Object)
         Dim toHtml
-        For i = 0 To sender.ToString.Length
-
-        Next
+        Dim arr As Array
+        arr = sender.split(".")
+        toHtml = arr.GetValue(0) + ".html"
         Return toHtml
     End Function
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        '  Dim strName As String
+        '  Dim isReadOnly As Boolean
+        '  Dim isVisible As Boolean
+        ' Dim document
+        ' Dim docu
+        ' Dim missing = System.Reflection.Missing.Value
+        ' WebBrowser.Url =
+        ' oWordApplication = New Word.Application
+        'strName = "file:///C:\Users\zhaobin\Desktop\A20J792000-C8-1-1a.html"
+
+        'Shell("D:\360\360se6\Application\360se.exe")
+        WebBrowser1.Url = New Uri(String.Format("file:///C:\Users\zhaobin\Desktop\A20J792000-C8-1-1a.html", Application.StartupPath))
+
+        'Button1.Enabled = False
+        'html = New HTMLDocument
+        ' docu = WebBrowser1.Document.Body.InnerHtml
+        'docu = WebBrowser1.Document.Body.GetElementsByTagName("span")
+
+        'document = html.open(strName)
+        'document = html.(strName)
+        'html.getElementsByTagName("//span")
+
+
+        ''strName = tgtFile
+        'isReadOnly = False
+        'isVisible = True
+        '' oDocument = oWordApplication.Documents.Open(strName, missing, isReadOnly, missing, missing, missing, missing, missing, missing, missing, missing, isVisible, missing, missing, missing, missing)
+        'oDocument = oWordApplication.Documents.Open(strName)
+
+        ''Dim reader As IO.StreamReader = New IO.StreamReader(, System.Text.Encoding.GetEncoding("GB2312"))
+        'Dim respHTML As String = oDocument.ReadToEnd()
+
+        ' RichTextBox1.Text = docu
+        'oDocument.Activate()
+        'oDocument.Close()
+        'oWordApplication.Quit()
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+
+    End Sub
+
+    Private Sub WebBrowser1_DragOver(sender As Object, e As DragEventArgs) Handles WebBrowser1.DragOver
+        RichTextBox1.Text = WebBrowser1.Document.Body.InnerHtml
+    End Sub
 End Class
